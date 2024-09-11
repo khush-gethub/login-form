@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f2;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    height: 80vh;
+}
+
+.left {
+    flex: 1;
+    background-color: #000;
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.left h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.left ul {
+    list-style-type: none;
+    line-height: 2;
+    object-fit: cover;
+}
+
+.right {
+    flex: 1;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 80%;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #f78181;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #f05a5a;
+}
+
+a.forgot-password {
+    display: block;
+    margin-bottom: 20px;
+    text-align: right;
+
+}
+
+.social-login button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+}
+
+.sso { background-color: #333; }
+
+
+.google { 
+    background-color: #4285F4; }
+
+.github { background-color: #333; }
+
+.facebook { background-color: #3b5998; }
+
+.apple { background-color: #333; }
+
+.social-login button:hover {
+    opacity: 0.9;
+}
+
+.login-icon{
+    font-size: 1.5rem;
+    margin: 0.7rem;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+
+        </div>
+
+        <div class="right">
+            <div class="login-box">
+                <h2 style="font-size: 2rem; font-weight: 600;">Log in to your account</h2>
+                <form id="loginForm" onsubmit="return validateForm()">
+                    <div class="input-group">
+                        <label for="email">Email or Username</label>
+                        <input type="text" id="email" name="email" placeholder="Enter your email or username" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit">Log In</button>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </form>
+                <div class="social-login">
+                    <button class="google"><i class="fa-brands fa-google login-icon"></i>Continue with Google</button>
+                    <button class="github"><i class="fa-brands fa-github login-icon"></i>Continue with GitHub</button>
+                    <button class="facebook"><i class="fa-brands fa-facebook login-icon"></i>Continue with Facebook</button>
+                    <button class="apple"><i class="fa-brands fa-apple login-icon"></i>Continue with Apple</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (email === "") {
+        alert("Please enter your email or username.");
+        return false;
+    }
+    if (password === "") {
+        alert("Please enter your password.");
+        return false;
+    }
+    return true;
+}
+
+    </script>
+</body>
+</html>

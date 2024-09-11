@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Multilevel Signup Form</title>
+    <link rel="stylesheet" href="https://unpkg.com/@adminkit/core@latest/dist/css/app.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            background-color: #136f63;
+            color: white;
+            padding: 0.5rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2 style="font-size: 2rem; font-weight: 600;">Signup Form</h2>
+
+        <!-- Step 1: Choose if freelancer or client -->
+        <div class="form-group">
+            <label for="user-type">Are you a freelancer or a client?</label>
+            <select id="user-type">
+                <option value="" disabled selected>Select one</option>
+                <option value="freelancer">Freelancer</option>
+                <option value="client">Client</option>
+            </select>
+        </div>
+
+        <!-- Step 2: Basic Information (common for both) -->
+        <div id="basic-info" class="hidden">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+
+            <div class="form-group">
+                <label for="number">Phone no.</label>
+                <input type="tel" id="number" placeholder="Enter your Phone number">
+            </div>
+        </div>
+
+        <!-- Step 3a: Freelancer specific information -->
+        <div id="freelancer-info" class="hidden">
+            <div class="form-group">
+                <label for="certificates">Certificates</label>
+                <textarea id="certificates" placeholder="List your certificates"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="education">Education</label>
+                <input type="text" id="education" placeholder="Enter your education">
+            </div>
+
+            <div class="form-group">
+                <label for="expertise">Expertise</label>
+                <select id="expertise">
+                    <option value="" disabled selected>Select your expertise</option>
+                    <option value="web-developer">Web Developer</option>
+                    <option value="graphic-designer">Graphic Designer</option>
+                    <option value="seo-expert">SEO Expert</option>
+                    <option value="content-writer">Content Writer</option>
+                    <!-- Add more options based on your needs -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3b: Client specific (no extra fields, redirect to homepage) -->
+
+        <button id="submit-btn" class="hidden">Submit</button>
+    </div>
+
+
+    <script src="https://unpkg.com/@adminkit/core@latest/dist/js/app.js"></script>
+    <script>
+        const userTypeSelect = document.getElementById('user-type');
+        const basicInfoSection = document.getElementById('basic-info');
+        const freelancerInfoSection = document.getElementById('freelancer-info');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Reset form on page load (refresh)
+        window.onload = function () {
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('certificates').value = '';
+            document.getElementById('education').value = '';
+            document.getElementById('expertise').selectedIndex = 0;
+            document.getElementById('profile-picture').value = '';
+            userTypeSelect.selectedIndex = 0;
+            basicInfoSection.classList.add('hidden');
+            freelancerInfoSection.classList.add('hidden');
+            submitBtn.classList.add('hidden');
+        }
+
+        userTypeSelect.addEventListener('change', function () {
+            const userType = userTypeSelect.value;
+
+            // Show the basic information fields
+            basicInfoSection.classList.remove('hidden');
+            submitBtn.classList.remove('hidden');
+
+            // If freelancer is selected, show freelancer-specific fields
+            if (userType === 'freelancer') {
+                freelancerInfoSection.classList.remove('hidden');
+            } else {
+                freelancerInfoSection.classList.add('hidden');
+            }
+        });
+
+        submitBtn.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            const userType = userTypeSelect.value;
+
+            if (userType === 'client') {
+                // Redirect client to the home page after submitting
+                window.location.href = 'home.html'; // Change to your homepage URL
+            } else if (userType === 'freelancer') {
+                // Submit the form data (implement actual backend logic here)
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const certificates = document.getElementById('certificates').value;
+                const education = document.getElementById('education').value;
+                const expertise = document.getElementById('expertise').value;
+                const profilePicture = document.getElementById('profile-picture').files[0]; // File object
+
+                // Example: Save the freelancer data (you would typically send this to the server)
+                console.log({
+                    userType,
+                    name,
+                    email,
+                    password,
+                    certificates,
+                    education,
+                    expertise,
+                    profilePicture
+                });
+
+                alert('Freelancer signup complete!');
+            }
+
+            // Reset the form after submission
+            document.getElementById('user-type').selectedIndex = 0;
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('certificates').value = '';
+            document.getElementById('education').value = '';
+            document.getElementById('expertise').selectedIndex = 0;
+            document.getElementById('profile-picture').value = '';
+            basicInfoSection.classList.add('hidden');
+            freelancerInfoSection.classList.add('hidden');
+            submitBtn.classList.add('hidden');
+        });
+    </script>
+
+</body>
+
+</html>
